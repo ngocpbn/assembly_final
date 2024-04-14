@@ -5,7 +5,7 @@
     input_password db 'Please enter Your Password: $'
     tryagain db "Try Again? (1/0): $"
     key_message db  'Press any key to continue... $'
-    password db 'aa1234$'
+    password db '123456$'
     incorrect_password db 10,13, 'Incorrect Password$'
         
     welcome db 10,13,10,13, 'WELCOME TO AHIHI RESTAURANT$'
@@ -18,15 +18,15 @@
     
     newLine db 10,13, '$' 
     
-    opt1 db 10,13, '1. Banh my xuc xich - 4$'
-    opt2 db 10,13, '2. Banh my xa xiu - 3$'
-    opt3 db 10,13, '3. Banh my pate - 2$'
-    opt4 db 10,13, '4. Banh my trung - 2$'
-    opt5 db 10,13, '5. Banh my ruoc thit heo - 1$'
-    opt6 db 10,13, '6. Bun tron - 5$'
-    opt7 db 10,13, '7. My tron - 4$'
-    opt8 db 10,13, '8. Xoi xeo - 2$'
-    opt9 db 10,13, '9. Nuoc loc - 8$'
+    opt1 db 10,13, '1. Banh my xuc xich         Price: 4$'
+    opt2 db 10,13, '2. Banh my xa xiu           Price: 3$'
+    opt3 db 10,13, '3. Banh my pate             Price: 2$'
+    opt4 db 10,13, '4. Banh my trung            Price: 2$'
+    opt5 db 10,13, '5. Banh my ruoc thit heo    Price: 1$'
+    opt6 db 10,13, '6. Bun tron                 Price: 5$'
+    opt7 db 10,13, '7. My tron                  Price: 4$'
+    opt8 db 10,13, '8. Xoi xeo                  Price: 2$'
+    opt9 db 10,13, '9. Nuoc loc                 Price: 8$'
 
     msg_bm_xuc_xich db 10,13, 'How many banh my xuc xich do you want to buy: $'
     msg_bm_xa_xiu db 10,13, 'How many Banh my xa xiu do you want to buy: $'
@@ -53,15 +53,15 @@
     no_xoi_xeo_sold dw 0
     no_nuoc_loc_sold dw 0
     
-    price_panadol dw 4
-    price_paracetamol dw 3
-    price_cleritek dw 2    
-    price_aspirin dw 2
-    price_brufen dw 1
-    price_surbex dw 5    
-    price_arinac dw 4
-    price_sinopharm dw 2
-    price_pfizer dw 8
+    bm_xuc_xich_price dw 4
+    bm_xa_xiu_price dw 3
+    bm_pate_price dw 2    
+    bm_trung_price dw 2
+    bm_ruoc_thit_heo_price dw 1
+    bun_tron_price dw 5    
+    my_tron_prices dw 4
+    xoi_xeo_price dw 2
+    nuoc_loc_price dw 8
     
     panadol_print db 10,13, 'Banh my xuc xich: $'
     pfizer_print db 10,13, 'Nuoc loc: $'
@@ -91,7 +91,7 @@ pass:
     int 21h
     
     mov si,0 
-    mov cx,6 
+    mov cx,6    ; password length
 l1:
     mov ah,1
     int 21h
@@ -337,7 +337,7 @@ calculatePanadol:
     lea dx,total_msg  
     int 21h
     mov ax,z  
-    mul price_panadol  
+    mul bm_xuc_xich_price  
     mov x,ax  
     add no_bm_xuc_xich_sold,ax
     add amount,ax
@@ -373,7 +373,7 @@ calculateParacetamol:
     lea dx,total_msg  
     int 21h
     mov ax,z  
-    mul price_paracetamol  
+    mul bm_xa_xiu_price  
     mov x,ax  
     add no_bm_xa_xiu_sold,ax
     add amount,ax 
@@ -409,7 +409,7 @@ calculateCleritek:
     lea dx,total_msg  
     int 21h
     mov ax,z  
-    mul price_cleritek  
+    mul bm_pate_price  
     mov x,ax  
     add no_bm_pate_sold,ax
     add amount,ax
@@ -445,7 +445,7 @@ calculateAspirin:
     lea dx,total_msg  
     int 21h
     mov ax,z  
-    mul price_aspirin  
+    mul bm_trung_price  
     mov x,ax  
     add no_bm_trung_sold,ax
     add amount,ax 
@@ -481,7 +481,7 @@ calculateBrufen:
     lea dx,total_msg  
     int 21h
     mov ax,z  
-    mul price_brufen  
+    mul bm_ruoc_thit_heo_price  
     mov x,ax 
     add no_bm_ruoc_thit_heo_sold,ax
     add amount,ax  
@@ -517,7 +517,7 @@ calculateSurbex:
     lea dx,total_msg  
     int 21h
     mov ax,z  
-    mul price_surbex  
+    mul bun_tron_price  
     mov x,ax  
     add no_bun_tron_sold,ax
     add amount,ax 
@@ -553,7 +553,7 @@ calculateArinac:
     lea dx,total_msg  
     int 21h
     mov ax,z  
-    mul price_arinac  
+    mul my_tron_prices  
     mov x,ax  
     add no_my_tron_sold,ax
     add amount,ax
@@ -588,8 +588,7 @@ calculateSinopharm:
     lea dx,total_msg  
     int 21h
     mov ax,z  
-    mul price_sinopharm  
-    mov x,ax  
+    mul xoi_xeo_price  
     add no_xoi_xeo_sold,ax 
     call output
     jmp showmenu      
@@ -623,7 +622,7 @@ calculatePfizer:
     lea dx,total_msg
     int 21h
     mov ax,z  
-    mul price_pfizer  
+    mul nuoc_loc_price  
     mov x,ax  
     add no_nuoc_loc_sold,ax
     add amount,ax 
