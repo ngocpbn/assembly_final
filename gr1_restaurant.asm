@@ -265,60 +265,60 @@ banh_my_xuc_xich:
     mov ah,9
     lea dx,msg_bm_xuc_xich
     int 21h
-    call methodPanadol    
+    call bm_xuc_xich_func    
 banh_my_xa_xiu:
     mov ah,9
     lea dx,msg_bm_xa_xiu
     int 21h
-    call methodParacetamol
+    call bm_xa_xiu_func
 banh_my_pate:
     mov ah,9
     lea dx,msg_bm_pate
     int 21h
-    call methodParacetamol
+    call bm_pate_func
 banh_my_trung:
     mov ah,9
     lea dx,msg_bm_trung
     int 21h
-    call methodAspirin
+    call bm_trung_func
 banh_my_ruoc_thit_heo:
     mov ah,9
     lea dx,msg_bm_ruoc_thit_heo
     int 21h
-    call methodBrufen
+    call bm_ruoc_thit_heo_func
 bun_tron:
     mov ah,9
     lea dx,msg_bun_tron
     int 21h
-    call methodSurbex
+    call bun_tron_func
 my_tron:
     mov ah,9
     lea dx,msg_my_tron
     int 21h
-    call methodArinac
+    call my_tron_func
 xoi_xeo:
     mov ah,9
     lea dx,msg_xoi_xeo
     int 21h
-    call methodSinopharm
+    call xoi_xeo_func
 nuoc_loc:
     mov ah,9
     lea dx,msg_nuoc_loc
     int 21h
-    call methodPfizer
+    call nuoc_loc_func
             
     
 buyFood endp
 
-methodPanadol proc
+bm_xuc_xich_func proc
     mov x,0
     mov y,0
     mov bx,10
-inputPanadol:
+bm_xuc_xich_input:
     mov ah,1
     int 21h
     cmp al,13
-    je calculatePanadol
+    je calc_bm_xuc_xich_price
     sub al,30h
     xor ah,ah
     mov y,ax
@@ -326,10 +326,10 @@ inputPanadol:
     mul bx
     add ax,y
     mov x,ax
-    jmp inputPanadol
+    jmp bm_xuc_xich_input
         
 
-calculatePanadol:     
+calc_bm_xuc_xich_price:     
     mov ax,x   
     mov z,ax     
      
@@ -344,17 +344,17 @@ calculatePanadol:
     call output
     jmp showmenu      
      
-methodPanadol endp
+bm_xuc_xich_func endp
 
-methodParacetamol proc
+bm_xa_xiu_func proc
     mov x,0
     mov y,0
     mov bx,10
-inputParacetamol:
+bm_xa_xiu_input:
     mov ah,1
     int 21h
     cmp al,13
-    je calculateParacetamol
+    je calc_bm_xa_xiu_price
     sub al,30h
     xor ah,ah
     mov y,ax
@@ -362,10 +362,10 @@ inputParacetamol:
     mul bx
     add ax,y
     mov x,ax
-    jmp inputParacetamol
+    jmp bm_xa_xiu_input
         
 
-calculateParacetamol:     
+calc_bm_xa_xiu_price:     
     mov ax,x   
     mov z,ax     
      
@@ -380,17 +380,17 @@ calculateParacetamol:
     call output
     jmp showmenu     
      
-methodParacetamol endp
+bm_xa_xiu_func endp
 
-methodCleritek proc
+bm_pate_func proc
     mov x,0
     mov y,0
     mov bx,10
-inputCleritek:
+bm_pate_input:
     mov ah,1
     int 21h
     cmp al,13
-    je calculateCleritek
+    je calc_bm_pate_price
     sub al,30h
     xor ah,ah
     mov y,ax
@@ -398,10 +398,10 @@ inputCleritek:
     mul bx
     add ax,y
     mov x,ax
-    jmp inputCleritek
+    jmp bm_pate_input
         
 
-calculateCleritek:     
+calc_bm_pate_price:     
     mov ax,x   
     mov z,ax     
      
@@ -416,17 +416,17 @@ calculateCleritek:
     call output
     jmp showmenu     
      
-methodCleritek endp
+bm_pate_func endp
 
-methodAspirin proc
+bm_trung_func proc
     mov x,0
     mov y,0
     mov bx,10
-inputAspirin:
+bm_trung_input:
     mov ah,1
     int 21h
     cmp al,13
-    je calculateAspirin
+    je calc_bm_trung_price
     sub al,30h
     xor ah,ah
     mov y,ax
@@ -434,10 +434,10 @@ inputAspirin:
     mul bx
     add ax,y
     mov x,ax
-    jmp inputAspirin
+    jmp bm_trung_input
         
 
-calculateAspirin:     
+calc_bm_trung_price:     
     mov ax,x   
     mov z,ax     
      
@@ -452,17 +452,17 @@ calculateAspirin:
     call output
     jmp showmenu      
      
-methodAspirin endp
+bm_trung_func endp
 
-methodBrufen proc
+bm_ruoc_thit_heo_func proc
     mov x,0
     mov y,0
     mov bx,10
-inputBrufen:
+bm_ruoc_thit_heo_input:
     mov ah,1
     int 21h
     cmp al,13
-    je calculateBrufen
+    je calc_bm_ruoc_thit_heo_price
     sub al,30h
     xor ah,ah
     mov y,ax
@@ -470,10 +470,10 @@ inputBrufen:
     mul bx
     add ax,y
     mov x,ax
-    jmp inputBrufen
+    jmp bm_ruoc_thit_heo_input
         
 
-calculateBrufen:     
+calc_bm_ruoc_thit_heo_price:     
     mov ax,x   
     mov z,ax     
      
@@ -488,17 +488,17 @@ calculateBrufen:
     call output
     jmp showmenu      
      
-methodBrufen endp
+bm_ruoc_thit_heo_func endp
 
-methodSurbex proc
+bun_tron_func proc
     mov x,0
     mov y,0
     mov bx,10
-inputSurbex:
+bun_tron_input:
     mov ah,1
     int 21h
     cmp al,13
-    je calculateSurbex
+    je calc_bun_tron_price
     sub al,30h
     xor ah,ah
     mov y,ax
@@ -506,10 +506,10 @@ inputSurbex:
     mul bx
     add ax,y
     mov x,ax
-    jmp inputSurbex
+    jmp bun_tron_input
         
 
-calculateSurbex:     
+calc_bun_tron_price:     
     mov ax,x   
     mov z,ax     
      
@@ -524,17 +524,17 @@ calculateSurbex:
     call output
     jmp showmenu      
      
-methodSurbex endp
+bun_tron_func endp
 
-methodArinac proc
+my_tron_func proc
     mov x,0
     mov y,0
     mov bx,10
-inputArinac:
+my_tron_input:
     mov ah,1
     int 21h
     cmp al,13
-    je calculateArinac
+    je calc_my_tron_price
     sub al,30h
     xor ah,ah
     mov y,ax
@@ -542,10 +542,10 @@ inputArinac:
     mul bx
     add ax,y
     mov x,ax
-    jmp inputArinac
+    jmp my_tron_input
         
 
-calculateArinac:     
+calc_my_tron_price:     
     mov ax,x   
     mov z,ax     
      
@@ -560,17 +560,17 @@ calculateArinac:
     call output
     jmp showmenu      
      
-methodArinac endp
+my_tron_func endp
 
-methodSinopharm proc
+xoi_xeo_func proc
     mov x,0
     mov y,0
     mov bx,10
-inputSinopharm:
+xoi_xeo_input:
     mov ah,1
     int 21h
     cmp al,13
-    je calculateSinopharm
+    je calc_xoi_xeo_price
     sub al,30h
     xor ah,ah
     mov y,ax
@@ -578,9 +578,9 @@ inputSinopharm:
     mul bx
     add ax,y
     mov x,ax
-    jmp inputSinopharm
+    jmp xoi_xeo_input
 
-calculateSinopharm:     
+calc_xoi_xeo_price:     
     mov ax,x   
     mov z,ax     
 
@@ -593,17 +593,17 @@ calculateSinopharm:
     call output
     jmp showmenu      
 
-methodSinopharm endp
+xoi_xeo_func endp
 
-methodPfizer proc
+nuoc_loc_func proc
     mov x,0
     mov y,0
     mov bx,10
-inputPfizer:
+nuoc_loc_input:
     mov ah,1
     int 21h
     cmp al,13
-    je calculatePfizer
+    je calc_nuoc_loc_price
     sub al,30h
     xor ah,ah
     mov y,ax
@@ -611,10 +611,10 @@ inputPfizer:
     mul bx
     add ax,y
     mov x,ax
-    jmp inputPfizer
+    jmp nuoc_loc_input
         
 
-calculatePfizer:     
+calc_nuoc_loc_price:     
     mov ax,x   
     mov z,ax
 
@@ -630,7 +630,7 @@ calculatePfizer:
     jmp showmenu     
      
      
-methodPfizer endp
+nuoc_loc_func endp
 
 foodSoldStat proc
     mov ah,9
