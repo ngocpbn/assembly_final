@@ -63,15 +63,15 @@
     xoi_xeo_price dw 2
     nuoc_loc_price dw 8
     
-    panadol_print db 10,13, 'Banh my xuc xich: $'
-    pfizer_print db 10,13, 'Nuoc loc: $'
-    sinopharm_print db 10,13, 'Xoi xeo: $'
-    arinac_print db 10,13, 'My tron: $'
-    surbex_print db 10,13, 'Bun tron: $'
-    aspirin_print db 10,13, 'Banh my trung: $'
-    brufen_print db 10,13, 'Banh my ruoc thit heo: $'
-    cleritek_print db 10,13, 'Banh my pate: $'
-    paracetamol_print db 10,13, 'Banh my xa xiu: $' 
+    bm_xuc_xich_stat_print db 10,13, 'Banh my xuc xich: $'
+    nuoc_loc_stat_print db 10,13, 'Nuoc loc: $'
+    xoi_xeo_stat_print db 10,13, 'Xoi xeo: $'
+    my_tron_stat_print db 10,13, 'My tron: $'
+    bun_tron_stat_print db 10,13, 'Bun tron: $'
+    bm_trung_stat_print db 10,13, 'Banh my trung: $'
+    bm_ruoc_thit_heo_stat_print db 10,13, 'Banh my ruoc thit heo: $'
+    bm_pate_stat_print db 10,13, 'Banh my pate: $'
+    bm_xa_xiu_stat_print db 10,13, 'Banh my xa xiu: $' 
     
     x dw ?
     y dw ?
@@ -160,11 +160,11 @@ showmenu:
     int 21h
     
     cmp al,'1'
-    je buyMedicines 
+    je buyFood 
     cmp al,'2'
     je foodSoldStat
     cmp al,'3'
-    je showAmount
+    je showTotalRevenue
     cmp al,'4'
     je exit
     
@@ -183,7 +183,7 @@ showmenu:
     
 menu endp
 
-buyMedicines proc    
+buyFood proc    
     lea dx,msg2
     mov ah,9
     int 21h
@@ -231,23 +231,23 @@ buyMedicines proc
     mov ah,1
     int 21h
     cmp al,'1'
-    je panadol
+    je banh_my_xuc_xich
     cmp al,'2'
-    je paracetamol
+    je banh_my_xa_xiu
     cmp al,'3'
-    je cleritek
+    je banh_my_pate
     cmp al,'4'
-    je aspirin
+    je banh_my_trung
     cmp al,'5'
-    je brufen
+    je banh_my_ruoc_thit_heo
     cmp al,'6'
-    je surbex
+    je bun_tron 
     cmp al,'7'
-    je arinac
+    je my_tron
     cmp al,'8'
-    je sinopharm
+    je xoi_xeo
     cmp al,'9'
-    je pfizer
+    je nuoc_loc
     
     mov ah,9
     lea dx,newLine
@@ -261,54 +261,54 @@ buyMedicines proc
     lea dx, choose_an_opt_msg
     int 21h
     jmp showmenu
-panadol:
+banh_my_xuc_xich:
     mov ah,9
     lea dx,msg_bm_xuc_xich
     int 21h
     call methodPanadol    
-paracetamol:
+banh_my_xa_xiu:
     mov ah,9
     lea dx,msg_bm_xa_xiu
     int 21h
     call methodParacetamol
-cleritek:
+banh_my_pate:
     mov ah,9
     lea dx,msg_bm_pate
     int 21h
     call methodParacetamol
-aspirin:
+banh_my_trung:
     mov ah,9
     lea dx,msg_bm_trung
     int 21h
     call methodAspirin
-brufen:
+banh_my_ruoc_thit_heo:
     mov ah,9
     lea dx,msg_bm_ruoc_thit_heo
     int 21h
     call methodBrufen
-surbex:
+bun_tron:
     mov ah,9
     lea dx,msg_bun_tron
     int 21h
     call methodSurbex
-arinac:
+my_tron:
     mov ah,9
     lea dx,msg_my_tron
     int 21h
     call methodArinac
-sinopharm:
+xoi_xeo:
     mov ah,9
     lea dx,msg_xoi_xeo
     int 21h
     call methodSinopharm
-pfizer:
+nuoc_loc:
     mov ah,9
     lea dx,msg_nuoc_loc
     int 21h
     call methodPfizer
             
     
-buyMedicines endp
+buyFood endp
 
 methodPanadol proc
     mov x,0
@@ -634,63 +634,63 @@ methodPfizer endp
 
 foodSoldStat proc
     mov ah,9
-    lea dx,panadol_print
+    lea dx,bm_xuc_xich_stat_print
     int 21h
     mov ax,no_bm_xuc_xich_sold 
     mov x,ax
     call output
     
     mov ah,9
-    lea dx,paracetamol_print
+    lea dx,bm_xa_xiu_stat_print
     int 21h
     mov ax,no_bm_xa_xiu_sold
     mov x,ax
     call output
     
     mov ah,9
-    lea dx,cleritek_print
+    lea dx,bm_pate_stat_print
     int 21h
     mov ax,no_bm_pate_sold
     mov x,ax
     call output
     
     mov ah,9
-    lea dx,aspirin_print
+    lea dx,bm_trung_stat_print
     int 21h
     mov ax,no_bm_trung_sold
     mov x,ax
     call output
     
     mov ah,9
-    lea dx,brufen_print
+    lea dx,bm_ruoc_thit_heo_stat_print
     int 21h
     mov ax,no_bm_ruoc_thit_heo_sold
     mov x,ax
     call output
     
     mov ah,9
-    lea dx,surbex_print
+    lea dx,bun_tron_stat_print
     int 21h
     mov ax,no_bun_tron_sold
     mov x,ax
     call output
     
     mov ah,9
-    lea dx,arinac_print
+    lea dx,my_tron_stat_print
     int 21h
     mov ax,no_my_tron_sold
     mov x,ax
     call output
     
     mov ah,9
-    lea dx,sinopharm_print
+    lea dx,xoi_xeo_stat_print
     int 21h
     mov ax,no_xoi_xeo_sold
     mov x,ax
     call output
     
     mov ah,9
-    lea dx,pfizer_print
+    lea dx,nuoc_loc_stat_print
     int 21h
     mov ax,no_nuoc_loc_sold
     mov x,ax
@@ -701,7 +701,7 @@ foodSoldStat proc
 
 foodSoldStat endp
 
-showAmount proc
+showTotalRevenue proc
     mov ax,amount
     mov x,ax    
     mov ah,9
@@ -709,7 +709,7 @@ showAmount proc
     int 21h
     call output
     jmp showmenu    
-showAmount endp
+showTotalRevenue endp
 
 exit proc
     mov ah,4ch
