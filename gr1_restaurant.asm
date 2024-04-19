@@ -588,8 +588,10 @@ calc_xoi_xeo_price:
     lea dx,total_msg  
     int 21h
     mov ax,z  
-    mul xoi_xeo_price  
-    add no_xoi_xeo_sold,ax 
+    mul xoi_xeo_price
+    mov x,ax  
+    add no_xoi_xeo_sold,ax
+    add amount,ax 
     call output
     jmp showmenu      
 
