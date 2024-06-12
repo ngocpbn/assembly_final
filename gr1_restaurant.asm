@@ -2,19 +2,23 @@
 .stack 100h
 .data 
     
-    input_password db 'Please enter Your Password: $'
+    input_password db 'Please enter your password: $'
+    input_usermame db 'Please enter your username: $'
     tryagain db "Try Again? (1/0): $"
-    key_message db  'Press any key to continue... $'
+    
+    username db 'ngoc$'
     password db '123456$'
     incorrect_password db 10,13, 'Incorrect Password$'
+    incorrect_username_text db 10,13, 'Incorrect Username$'
         
     welcome db 10,13,10,13, 'WELCOME TO AHIHI RESTAURANT$'
     choose_an_opt_msg db 10,13,10,13, 'Choose an option: $'
     msg2 db 10,13,10,13, 'What Do You Want To Buy$'
     buy_food_msg db 10,13, '1. Buy food$'
     food_sold_statistic_msg db 10,13, '2. See how much food sold today$'
-    wrong_input db 10,13, 'Wrong Input$'
+    amount_print db 10,13,'3. Revenue for today$'
     exit_program db 10,13,'4. Exit$'
+    wrong_input db 10,13, 'Wrong Input$'
     
     newLine db 10,13, '$' 
     
@@ -41,7 +45,6 @@
 
     amount_earned db 10,13,'Amount earned: $'
     amount dw 0
-    amount_print db 10,13,'3. Revenue for today$'
     
     no_bm_xuc_xich_sold dw 0
     no_bm_xa_xiu_sold dw 0
@@ -85,6 +88,45 @@ main endp
 
 security proc
     
+username_proc:    
+    mov ah,9
+    lea dx,input_usermame
+    int 21h
+    mov si,0 
+    mov cx,4    ; username length
+l1_username:
+    mov ah,1
+    int 21h
+    cmp al,username[si]
+    jne incorrect_username
+    inc si
+    loop l1_username
+    mov ah,9
+    lea dx,newLine
+    int 21h
+    call pass
+incorrect_username:
+    mov ah,9
+    lea dx,incorrect_username_text
+    int 21h
+    
+    mov ah,9
+    lea dx,newLine
+    int 21h
+    
+    mov ah,9
+    lea dx,tryagain
+    int 21h
+    
+    mov ah,1
+    int 21h
+    cmp al,'1'
+    mov ah,9
+    lea dx,newLine
+    int 21h
+    je username_proc
+    
+    jmp exit
 pass:    
     mov ah,9
     lea dx,input_password
@@ -122,8 +164,52 @@ incorrect:
     je pass
     
     jmp exit
-            
+
 security endp
+
+; securitytest proc
+    
+; pass_test:    
+;     mov ah,9
+;     lea dx,input_password
+;     int 21h
+    
+;     mov si,0 
+;     mov cx,6    ; password length
+; l1_test:
+;     mov ah,1
+;     int 21h
+;     cmp al,password[si]
+;     jne incorrect_test
+;     inc si
+;     loop l1_test
+;     call menu
+; incorrect_test:
+;     mov ah,9
+;     lea dx,incorrect_password
+;     int 21h
+    
+;     mov ah,9
+;     lea dx,newLine
+;     int 21h
+    
+;     mov ah,9
+;     lea dx,tryagain
+;     int 21h
+    
+;     mov ah,1
+;     int 21h
+;     cmp al,'1'
+;     mov ah,9
+;     lea dx,newLine
+;     int 21h
+;     je pass_test
+    
+;     jmp exit
+            
+
+
+; securitytest endp
 
 menu proc
      
